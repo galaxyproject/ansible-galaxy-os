@@ -2,7 +2,7 @@
 # Install the base operating system requirements for running Galaxy
 
 - include: packages.yml
-  when: cm_install_packages
+  when: install_packages
 
 - include: system_users.yml
-  when: cm_add_system_users
+  when: add_system_users

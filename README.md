@@ -26,8 +26,8 @@ playbook (e.g., `os-builder` for the sample playbook provided below).
 ### Control flow variables ###
 The following variables can be set to either `yes` or `no` to indicate if the
 given part of the role should be executed:
- - `cm_install_packages`: (default: `yes`) install system level packages
- - `cm_add_system_users`: (default: `yes`) configure system level users
+ - `install_packages`: (default: `yes`) install system level packages
+ - `add_system_users`: (default: `yes`) configure system level users
 
 Example playbook
 ----------------
