@@ -1,0 +1,65 @@
+---
+# Install system packages
+- name: Add custom Galaxy PPA (used for nginx package)
+  apt_repository: repo="ppa:galaxyproject/nginx" update_cache=no
+
+- name: Add Docker repository key
+  apt_key: url="https://get.docker.io/gpg" id="A88D21E9"
+
+- name: Add Docker repository
+  apt_repository: repo='deb http://get.docker.io/ubuntu docker main' update_cache=no
+
+- name: Install required system packages
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - ant
+    - atop
+    - axel
+    - bioperl
+    - cmake
+    - curl
+    - g++
+    - gcc
+    - gfortran
+    - git-core
+    - htop
+    - iftop
+    - iotop
+    - ipython
+    - libffi-dev
+    - liblapack-dev
+    - libncurses5-dev
+    - libopenblas-dev
+    - libpam0g-dev
+    - libpq-dev
+    - libsparsehash-dev
+    - lxc-docker
+    - make
+    - mercurial
+    - nginx-extras
+    - nmon
+    - openssh-server
+    - patch
+    - postgresql
+    - postgresql
+    - postgresql-client
+    - postgresql-plpython-9.3
+    - python-boto
+    - python-dev
+    - python-prettytable
+    - python-psycopg2
+    - python-virtualenv
+    - python-pip
+    - postgresql-server-dev-9.3
+    - rsync
+    - slurm-drmaa-dev
+    - supervisor
+    - swig
+    - sysstat
+    - unzip
+    - vim
+    - wget
+    - zlib1g-dev
+
+- name: Allow galaxy user to run docker
+  lineinfile: "dest=/etc/sudoers line='{{ galaxy_user_name }}  ALL = (root) NOPASSWD: SETENV: /usr/bin/docker'"
