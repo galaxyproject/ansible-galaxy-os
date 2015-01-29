@@ -7,8 +7,8 @@
 
 # Controls which tasks are included, in case you want to execute/update
 # only certain parts of the role.
-cm_install_packages: yes
-cm_add_system_users: yes
+install_packages: yes
+add_system_users: yes
 
 galaxy_user_name: galaxy
 galaxy_user_uid: 1001
