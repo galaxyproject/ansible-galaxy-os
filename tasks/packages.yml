@@ -9,6 +9,9 @@
 - name: Add Docker repository
   apt_repository: repo='deb http://get.docker.io/ubuntu docker main' update_cache=no
 
+- name: Update APT cache
+  apt: update_cache=yes
+
 - name: Install required system packages
   apt: pkg={{ item }} state=latest
   with_items:
