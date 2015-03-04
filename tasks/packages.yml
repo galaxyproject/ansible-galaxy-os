@@ -68,7 +68,7 @@
 - name: Install lxc-docker if installing packages.
   apt: pkg={{ item }} state={{ apt_package_state }}
   with_items:
-    - {{ docker_package }}
+    - "{{ docker_package }}"
   when: configure_docker and install_packages
 
 - name: Allow galaxy user to run docker with sudo
