@@ -6,3 +6,6 @@
 
 - include: system_users.yml
   when: add_system_users
+
+- include: misc.yml
+  when: install_packages
