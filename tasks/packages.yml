@@ -2,6 +2,11 @@
 # Install system packages
 - name: Add custom Galaxy PPA (used for nginx package)
   apt_repository: repo="ppa:galaxyproject/nginx" update_cache=no
+  when: ansible_distribution_version <= "15.04"
+
+- name: Add custom Galaxy PPA (used for nginx package)
+  apt_repository: repo="ppa:m-vandenbeek/nginx-upload-store" update_cache=no
+  when: ansible_distribution_version > "15.04"
 
 - name: Add Docker repository key
   apt_key: url="https://apt.dockerproject.org/gpg" id="2C52609D"
@@ -48,14 +53,12 @@
     - postgresql
     - postgresql
     - postgresql-client
-    - postgresql-plpython-9.3
     - python-boto
     - python-dev
     - python-prettytable
     - python-psycopg2
     - python-virtualenv
     - python-pip
-    - postgresql-server-dev-9.3
     - rsync
     - slurm-drmaa-dev
     - supervisor
@@ -65,6 +68,21 @@
     - vim
     - wget
     - zlib1g-dev
+
+- name: Install required system packages - release_specific
+  apt: pkg={{ item }} state={{ apt_package_state }}
+  with_items:
+    - postgresql-plpython-9.3
+    - postgresql-server-dev-9.3
+  when: ansible_distribution_version <= "15.04"
+
+- name: Install required system packages - 15.10
+  apt: pkg={{ item }} state={{ apt_package_state }}
+  with_items:
+    - postgresql-plpython-9.4
+    - postgresql-server-dev-9.4
+    - virtualenv
+  when: ansible_distribution_version == "15.10"
 
 - name: Install Docker package
   apt: pkg={{ item }} state={{ apt_package_state }}
