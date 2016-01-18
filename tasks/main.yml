@@ -6,3 +6,6 @@
 
 - include: packages.yml
   when: install_packages
+
+- include: docker.yml
+  when: configure_docker
