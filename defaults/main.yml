@@ -16,6 +16,12 @@ add_system_users: yes
 
 galaxy_user_name: galaxy
 galaxy_user_uid: 1001
+galaxy_user_gid: 1001
+
+postgres_user_name: postgres
+postgres_user_home: /var/lib/postgresql
+postgres_user_uid: 111
+postgres_user_gid: 121
 
 configure_docker: yes
 docker_package: docker-engine

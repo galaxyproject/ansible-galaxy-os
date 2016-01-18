@@ -1,0 +1,14 @@
+- name: Install Docker package
+  apt: pkg={{ item }} state={{ apt_package_state }}
+  with_items:
+    - "{{ docker_package }}"
+  when: install_packages
+
+- name: Allow galaxy user to run docker with sudo
+  lineinfile: "dest=/etc/sudoers line='{{ galaxy_user_name }}  ALL = (root) NOPASSWD: SETENV: /usr/bin/docker'"
+
+- name: Add Galaxy user to docker group - allowing sudoless docker usage
+  user: name={{ galaxy_user_name }} groups=docker append=yes
+
+- name: Set DOCKER_OPTS
+  lineinfile: dest=/etc/default/docker line='DOCKER_OPTS="--storage-driver=devicemapper"'

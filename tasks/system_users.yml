@@ -2,25 +2,22 @@
 # Add system users
 
 - name: Add system groups
-  group: name={{ item }} system=yes
+  group: name={{ item.name }} gid={{ item.gid }}  system=yes
   with_items:
-    - "{{ galaxy_user_name }}"
-    - shadow
+    - { name: "{{ galaxy_user_name }}", gid: "{{ galaxy_user_gid }}" }
+    - { name: "{{postgres_user_name}}", gid: "{{ postgres_user_gid }}" }
 
+- name: Add shadow groups
+  group: name=shadow system=yes
+
+- name: Add postgres user
+  user: name={{ postgres_user_name }} uid={{ postgres_user_uid }} system=yes home={{ postgres_user_home }}
+
+- name: Adjust postgresql permissions
+  file: path={{ postgres_user_home }} group={{ postgres_user_name }} owner={{ postgres_user_name }} recurse=yes
+ 
 - name: Add galaxy user
   user: name={{ galaxy_user_name }} uid={{ galaxy_user_uid }} shell=/bin/bash groups={{ galaxy_user_name }},shadow
-
-- name: Allow galaxy user to run docker with sudo
-  lineinfile: "dest=/etc/sudoers line='{{ galaxy_user_name }}  ALL = (root) NOPASSWD: SETENV: /usr/bin/docker'"
-  when: configure_docker
-
-- name: Add Galaxy user to docker group - allowing sudoless docker usage
-  user: name={{ galaxy_user_name }} groups=docker append=yes
-  when: configure_docker
-
-- name: Set DOCKER_OPTS
-  lineinfile: dest=/etc/default/docker line='DOCKER_OPTS="--storage-driver=devicemapper"'
-  when: configure_docker
 
 - name: Add nobody user to shadow group
   user: name=nobody groups=shadow

@@ -83,9 +83,3 @@
     - postgresql-server-dev-9.4
     - virtualenv
   when: ansible_distribution_version == "15.10"
-
-- name: Install Docker package
-  apt: pkg={{ item }} state={{ apt_package_state }}
-  with_items:
-    - "{{ docker_package }}"
-  when: configure_docker and install_packages
