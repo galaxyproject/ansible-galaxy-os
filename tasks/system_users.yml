@@ -12,7 +12,6 @@
 
 - name: Add postgres user
   user: name={{ postgres_user_name }} uid={{ postgres_user_uid }} system=yes home={{ postgres_user_home }}
-  environment: "{{ env }}"
 
 - name: Adjust postgresql permissions
   file: path={{ postgres_user_home }} group={{ postgres_user_name }} owner={{ postgres_user_name }} recurse=yes
