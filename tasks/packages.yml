@@ -60,7 +60,6 @@
     - python-virtualenv
     - python-pip
     - rsync
-    - slurm-drmaa-dev
     - supervisor
     - swig
     - sysstat
@@ -68,6 +67,10 @@
     - vim
     - wget
     - zlib1g-dev
+
+- name: Add slurm DRMAA package
+  apt: pkg=slurm-drmaa-dev state={{ apt_package_state }}
+  when: galaxy_slurm_drm
 
 - name: Install required system packages - release_specific
   apt: pkg={{ item }} state={{ apt_package_state }}

@@ -25,3 +25,6 @@ postgres_user_gid: 121
 
 configure_docker: yes
 docker_package: docker-engine
+
+# install packages to interface with SLURM DRM
+galaxy_slurm_drm: true
