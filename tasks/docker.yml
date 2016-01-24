@@ -1,8 +1,15 @@
 - name: Install Docker package
-  apt: pkg={{ item }} state={{ apt_package_state }}
+  apt: pkg={{ item }} state={{ apt_package_state }} install_recommends=no
   with_items:
     - "{{ docker_package }}"
   when: install_packages
+
+- name: Install apparmor
+  apt_: pkg={{ item }} state={{ apt_package_state }}
+  with_items:
+   - apparmor
+   - cgroup-lite
+  when: apparmor
 
 - name: Allow galaxy user to run docker with sudo
   lineinfile: "dest=/etc/sudoers line='{{ galaxy_user_name }}  ALL = (root) NOPASSWD: SETENV: /usr/bin/docker'"
