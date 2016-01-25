@@ -24,4 +24,5 @@ postgres_user_uid: 111
 postgres_user_gid: 121
 
 configure_docker: yes
+install_apparmor: yes
 docker_package: docker-engine
