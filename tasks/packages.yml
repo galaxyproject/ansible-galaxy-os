@@ -20,22 +20,15 @@
   apt: update_cache=yes
 
 - name: Install required system packages
-  apt: pkg={{ item }} state={{ apt_package_state }}
+  apt: pkg={{ item }} state={{ apt_package_state }} install_recommends=no
   with_items:
     - ant
-    - atop
-    - axel
-    - bioperl
     - cmake
     - curl
     - g++
     - gcc
     - gfortran
     - git-core
-    - htop
-    - iftop
-    - iotop
-    - ipython
     - libffi-dev
     - liblapack-dev
     - libncurses5-dev
@@ -46,7 +39,6 @@
     - make
     - mercurial
     - nginx-extras
-    - nmon
     - openssh-server
     - patch
     - pkg-config
@@ -65,9 +57,22 @@
     - swig
     - sysstat
     - unzip
-    - vim
     - wget
     - zlib1g-dev
+
+- name: Install packages for system maintenance
+  apt: pkg={{ item }} state={{ apt_package_state }}
+  with_items:
+    - atop
+    - bioperl
+    - ipython
+    - iotop
+    - htop
+    - iftop
+    - nmon
+    - axel
+    - vim
+  when: install_maintainance_packages
 
 - name: Install required system packages - release_specific
   apt: pkg={{ item }} state={{ apt_package_state }}
