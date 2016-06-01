@@ -33,22 +33,20 @@ given part of the role should be executed:
 
 Example playbook
 ----------------
-To use the role, it is create a `hosts` file that contains access information
-for the target machine, for example:
+To use the role, clone this repo and create a `hosts` file in the root repo dir
+with access information for the target machine, for example:
 
     [os-builder]
     130.56.250.204 ansible_ssh_private_key_file=key.pem ansible_ssh_user=ubuntu
 
-Next, set any variables as desired and place the role into a playbook file
-(e.g., `playbook.yml`). This playbook assumes the role has been placed into
-`roles/galaxyprojectdotorg.galaxy-os` directory:
+Next, create a `playbook.yml` file, setting any variables as desired:
 
     - hosts: os-builder
       sudo: yes
-      roles:
-        - role: galaxyprojectdotorg.galaxy-os
+      tasks:
+        - include: tasks/main.yml
           galaxy_user_uid: 1055
 
-Finally, run the playbook with:
+Run the playbook with:
 
-    $ ansible-playbook playbook.yml -i hosts
+    $ ansible-playbook playbook.yml -i hosts -e "@defaults/main.yml"

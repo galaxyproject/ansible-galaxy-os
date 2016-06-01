@@ -2,9 +2,14 @@
 # Install system packages
 - name: Add custom Galaxy PPA (used for nginx package)
   apt_repository: repo="ppa:galaxyproject/nginx" update_cache=no
+  when: ansible_distribution_version <= "15.04"
+
+- name: Add custom Galaxy PPA (used for nginx package)
+  apt_repository: repo="ppa:m-vandenbeek/nginx-upload-store" update_cache=no
+  when: ansible_distribution_version > "15.04"
 
 - name: Add Docker repository key
-  apt_key: url="https://apt.dockerproject.org/gpg" id="2C52609D"
+  apt_key: keyserver=hkp://p80.pool.sks-keyservers.net:80 id=58118E89F3A912897C070ADBF76221572C52609D
   when: configure_docker
 
 - name: Add Docker repository
@@ -15,22 +20,15 @@
   apt: update_cache=yes
 
 - name: Install required system packages
-  apt: pkg={{ item }} state={{ apt_package_state }}
+  apt: pkg={{ item }} state={{ apt_package_state }} install_recommends=no
   with_items:
     - ant
-    - atop
-    - axel
-    - bioperl
     - cmake
     - curl
     - g++
     - gcc
     - gfortran
     - git-core
-    - htop
-    - iftop
-    - iotop
-    - ipython
     - libffi-dev
     - liblapack-dev
     - libncurses5-dev
@@ -41,32 +39,60 @@
     - make
     - mercurial
     - nginx-extras
-    - nmon
     - openssh-server
     - patch
+    - pkg-config
     - postgresql
     - postgresql
     - postgresql-client
-    - postgresql-plpython-9.3
     - python-boto
     - python-dev
     - python-prettytable
     - python-psycopg2
     - python-virtualenv
     - python-pip
-    - postgresql-server-dev-9.3
     - rsync
     - slurm-drmaa-dev
     - supervisor
     - swig
     - sysstat
     - unzip
-    - vim
     - wget
     - zlib1g-dev
 
-- name: Install Docker package
+- name: Install packages for system maintenance
   apt: pkg={{ item }} state={{ apt_package_state }}
   with_items:
-    - "{{ docker_package }}"
-  when: configure_docker and install_packages
+    - atop
+    - bioperl
+    - ipython
+    - iotop
+    - htop
+    - iftop
+    - nmon
+    - axel
+    - vim
+  when: install_maintainance_packages
+
+- name: Install required system packages - release_specific
+  apt: pkg={{ item }} state={{ apt_package_state }}
+  with_items:
+    - postgresql-plpython-9.3
+    - postgresql-server-dev-9.3
+  when: ansible_distribution_version <= "15.04"
+
+- name: Install required system packages - 15.10
+  apt: pkg={{ item }} state={{ apt_package_state }}
+  with_items:
+    - postgresql-plpython-9.4
+    - postgresql-server-dev-9.4
+    - virtualenv
+  when: ansible_distribution_version == "15.10"
+
+- name: Install required system packages - 16.04
+  apt: pkg={{ item }} state={{ apt_package_state }}
+  with_items:
+    - postgresql-plpython-9.5
+    - postgresql-server-dev-9.5
+    - virtualenv
+  when: ansible_distribution_version == "16.04"

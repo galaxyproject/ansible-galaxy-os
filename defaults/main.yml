@@ -12,10 +12,18 @@ install_packages: yes
 # ('latest') or left alone ('present') if they are already installed but
 # not updated.
 apt_package_state: latest
+install_maintainance_packages: true
 add_system_users: yes
 
 galaxy_user_name: galaxy
 galaxy_user_uid: 1001
+galaxy_user_gid: 1001
+
+postgres_user_name: postgres
+postgres_user_home: /var/lib/postgresql
+postgres_user_uid: 111
+postgres_user_gid: 121
 
 configure_docker: yes
+install_apparmor: yes
 docker_package: docker-engine
