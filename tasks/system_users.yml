@@ -19,7 +19,7 @@
   when: configure_docker
 
 - name: Set DOCKER_OPTS
-  lineinfile: dest=/etc/default/docker line='DOCKER_OPTS="--storage-driver=devicemapper"'
+  lineinfile: dest=/etc/default/docker line='DOCKER_OPTS="--storage-driver=devicemapper -g /mnt/docker"'
   when: configure_docker
 
 - name: Add nobody user to shadow group
