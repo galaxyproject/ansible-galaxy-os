@@ -27,3 +27,4 @@ postgres_user_gid: 121
 configure_docker: yes
 install_apparmor: yes
 docker_package: docker-engine
+docker_storage_location: /var/lib/docker
