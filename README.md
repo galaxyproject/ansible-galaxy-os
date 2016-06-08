@@ -42,7 +42,7 @@ with access information for the target machine, for example:
 Next, create a `playbook.yml` file, setting any variables as desired:
 
     - hosts: os-builder
-      sudo: yes
+      become: yes
       tasks:
         - include: tasks/main.yml
           galaxy_user_uid: 1055
