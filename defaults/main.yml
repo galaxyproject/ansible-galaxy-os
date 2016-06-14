@@ -1,5 +1,5 @@
 ---
-# Default varaibles used during the OS build process.
+# Default variables used during the OS build process.
 # Some of these can be used to control the execution flow of the
 # role.
 # Some of these variables are reused/relied on as part of a larger
@@ -12,7 +12,7 @@ install_packages: yes
 # ('latest') or left alone ('present') if they are already installed but
 # not updated.
 apt_package_state: latest
-install_maintainance_packages: true
+install_maintainance_packages: yes
 add_system_users: yes
 
 galaxy_user_name: galaxy

@@ -11,7 +11,7 @@ None
 
 Role variables
 --------------
-All of the listed variabls are stored in `defaults/main.yml`. Individual variables
+All of the listed variables are stored in `defaults/main.yml`. Individual variables
 can be set or overridden by setting them directly in a playbook for this role
 (see an example below for `galaxy_user_uid`). Alternatively, they can be set by
 creating `group_vars` directory in the root directory of the playbook used to
@@ -27,8 +27,11 @@ playbook (e.g., `os-builder` for the sample playbook provided below).
 The following variables can be set to either `yes` or `no` to indicate if the
 given part of the role should be executed:
  - `install_packages`: (default: `yes`) install system level packages
+ - `install_maintainance_packages`: (default: `yes`) install convenience system
+    packages used for server maintenance and administration
  - `configure_docker`: (default: `yes`) configure Docker as part of `install_packages`
- - `apt_package_state`: (default: `latest`) set to `present` to not force update of existing installed packages.
+ - `apt_package_state`: (default: `latest`) set to `present` to not force update
+    of existing installed packages.
  - `add_system_users`: (default: `yes`) configure system level users
 
 Example playbook
