@@ -14,7 +14,12 @@
   user: name={{ postgres_user_name }} uid={{ postgres_user_uid }} system=yes home={{ postgres_user_home }}
 
 - name: Adjust postgresql permissions
-  file: path={{ postgres_user_home }} group={{ postgres_user_name }} owner={{ postgres_user_name }} recurse=yes
+  file: path={{ item }} group={{ postgres_user_gid }} owner={{ postgres_user_uid }} recurse=yes state=directory
+  with_items:
+    - /etc/postgresql
+    - /var/log/postgresql
+    - /var/run/postgresql
+    - "{{ postgres_user_home }}"
  
 - name: Add galaxy user
   user: name={{ galaxy_user_name }} uid={{ galaxy_user_uid }} shell=/bin/bash groups={{ galaxy_user_name }},shadow
