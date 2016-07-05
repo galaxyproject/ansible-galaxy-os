@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM toolshed/requirements
 
 RUN apt-get -qq update && apt-get install --no-install-recommends -y apt-transport-https  software-properties-common && \
     apt-add-repository -y ppa:ansible/ansible && \
@@ -8,7 +8,11 @@ RUN apt-get -qq update && apt-get install --no-install-recommends -y apt-transpo
 
 RUN mkdir /tmp/ansible
 WORKDIR /tmp/ansible
-ADD local.yml /tmp/ansible/local.yml
-ADD defaults /tmp/ansible/defaults
-ADD tasks /tmp/ansible/tasks
-RUN ansible-playbook -i localhost, local.yml -e "@defaults/main.yml"
+ADD . /tmp/ansible
+RUN ansible-playbook -i localhost, local.yml \
+    -e "@defaults/main.yml" \
+    -e "install_maintenance_packages=false" \
+    -e "postgres_user_uid=1550" \
+    -e "postgres_user_gid=1550" \
+    -e "galaxy_user_uid=1450" \
+    -e "galaxy_user_gid=1450"
