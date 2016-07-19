@@ -1,0 +1,74 @@
+---
+- name: Add Docker repository key
+  apt_key: keyserver=hkp://p80.pool.sks-keyservers.net:80 id=58118E89F3A912897C070ADBF76221572C52609D
+  when: configure_docker
+
+- name: Add Docker repository
+  apt_repository: repo='deb https://apt.dockerproject.org/repo debian-{{ ansible_distribution_release }} main' update_cache=no #'
+  when: configure_docker
+
+- name: Update APT cache
+  apt: update_cache=yes
+
+- name: Install required system packages
+  apt: pkg={{ item }} state={{ apt_package_state }} install_recommends=no
+  with_items:
+    - ant
+    - cmake
+    - curl
+    - g++
+    - gcc
+    - gfortran
+    - git-core
+    - libffi-dev
+    - liblapack-dev
+    - libncurses5-dev
+    - libopenblas-dev
+    - libpam0g-dev
+    - libpq-dev
+    - libsparsehash-dev
+    - make
+    - mercurial
+    - nginx-extras
+    - openssh-server
+    - patch
+    - pkg-config
+    - postgresql
+    - postgresql-client
+    - python-boto
+    - python-dev
+    - python-prettytable
+    - python-psycopg2
+    - python-virtualenv
+    - python-pip
+    - rsync
+    - slurm-drmaa-dev
+    - sudo
+    - supervisor
+    - swig
+    - sysstat
+    - unzip
+    - wget
+    - zlib1g-dev
+
+- name: Install packages for system maintenance
+  apt: pkg={{ item }} state={{ apt_package_state }}
+  with_items:
+    - atop
+    - bioperl
+    - ipython
+    - iotop
+    - htop
+    - iftop
+    - nmon
+    - axel
+    - vim
+  when: install_maintainance_packages
+
+- name: Install required system packages - 8
+  apt: pkg={{ item }} state={{ apt_package_state }}
+  with_items:
+    - postgresql-plpython-9.4
+    - postgresql-server-dev-9.4
+    - virtualenv
+  when: ansible_distribution_version >= 8
