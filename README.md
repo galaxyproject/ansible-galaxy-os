@@ -3,7 +3,7 @@ running Galaxy.
 
 Requirements
 ------------
-The role has been developed and tested on Ubuntu 14.04. It requires `sudo` access.
+The role has been developed and tested on Ubuntu 14.04 and Debian 8. It requires `sudo` access.
 
 Dependencies
 ------------
