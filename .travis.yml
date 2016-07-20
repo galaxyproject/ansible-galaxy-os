@@ -4,5 +4,9 @@ python: 2.7
 services:
  - docker
 
+env:
+  - FILENAME=Dockerfile.ubuntu
+  - FILENAME=Dockerfile.debian
+
 script:
-  - docker build -t ansible-galaxy-os .
+  - docker build -t ansible-galaxy-os -f $FILENAME .

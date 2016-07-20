@@ -4,8 +4,14 @@
 - include: system_users.yml
   when: add_system_users
 
-- include: packages.yml
-  when: install_packages
+- include: ubuntu/packages.yml
+  when: install_packages and ansible_distribution == 'Ubuntu'
 
-- include: docker.yml
-  when: configure_docker
+- include: ubuntu/docker.yml
+  when: configure_docker and ansible_distribution == 'Ubuntu'
+
+- include: debian/packages.yml
+  when: install_packages and ansible_distribution == 'Debian'
+
+- include: debian/docker.yml
+  when: configure_docker and ansible_distribution == 'Debian'
