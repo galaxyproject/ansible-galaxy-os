@@ -1,6 +1,6 @@
 ---
 - name: Prerequisites
-  apt: name={{ item }} state=latest update_cache=yes
+  apt: name={{ item }} state={{ apt_package_state }} update_cache=yes
   with_items:
     - apt-utils
     - apt-transport-https
