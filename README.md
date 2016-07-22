@@ -1,3 +1,6 @@
+.. image:: https://travis-ci.org/galaxyproject/ansible-galaxy-os?branch=master
+   :target: https://travis-ci.org/galaxyproject/ansible-galaxy-os
+
 This Ansible role is for configuring the base operating system useful for
 running Galaxy.
 
