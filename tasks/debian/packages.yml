@@ -1,4 +1,11 @@
 ---
+- name: Prerequisites
+  apt: name={{ item }} state={{ apt_package_state }} update_cache=yes
+  with_items:
+    - apt-utils
+    - apt-transport-https
+    - ca-certificates
+
 - name: Add Docker repository key
   apt_key: keyserver=hkp://p80.pool.sks-keyservers.net:80 id=58118E89F3A912897C070ADBF76221572C52609D
   when: configure_docker
@@ -19,7 +26,7 @@
     - g++
     - gcc
     - gfortran
-    - git-core
+    - git
     - libffi-dev
     - liblapack-dev
     - libncurses5-dev
