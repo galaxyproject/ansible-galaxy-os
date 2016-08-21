@@ -7,6 +7,9 @@
 - include: ubuntu/packages.yml
   when: install_packages and ansible_distribution == 'Ubuntu'
 
+- include: ubuntu/rabbitmq.yml
+  when: install_rabbitmq  # Works on Ubunta and Debian
+
 - include: ubuntu/docker.yml
   when: configure_docker and ansible_distribution == 'Ubuntu'
 
