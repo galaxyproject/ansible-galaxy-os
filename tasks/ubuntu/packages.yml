@@ -60,6 +60,7 @@
     - python-virtualenv
     - python-pip
     - rsync
+    - samtools
     - slurm-drmaa-dev
     - supervisor
     - swig

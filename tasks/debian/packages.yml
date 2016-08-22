@@ -49,6 +49,7 @@
     - python-virtualenv
     - python-pip
     - rsync
+    - samtools
     - slurm-drmaa-dev
     - sudo
     - supervisor
