@@ -19,12 +19,13 @@
 
 - name: Stop Docker service
   service: name=docker state=stopped
-  
+
 - name: Set DOCKER_OPTS
   lineinfile: dest=/etc/default/docker line='DOCKER_OPTS="--storage-driver=devicemapper -g {{ docker_storage_location }}"'
 
 - name: Remove old Docker folder
   file: path=/var/lib/docker state=absent
-  
+
 - name: Restart the Docker service
   service: name=docker state=started
+  when: ansible_virtualization_type != 'docker'
