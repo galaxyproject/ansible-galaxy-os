@@ -2,6 +2,7 @@
   apt: pkg={{ item }} state={{ apt_package_state }} install_recommends=no
   with_items:
     - "{{ docker_package }}"
+    - sudo
   when: install_packages
 
 - name: Install apparmor
@@ -12,19 +13,24 @@
   when: install_apparmor
 
 - name: Allow galaxy user to run docker with sudo
-  lineinfile: "dest=/etc/sudoers line='{{ galaxy_user_name }}  ALL = (root) NOPASSWD: SETENV: /usr/bin/docker'"
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    create: yes
+    line: '{{ galaxy_user_name }}  ALL = (root) NOPASSWD: SETENV: /usr/bin/docker'
 
 - name: Add Galaxy user to docker group - allowing sudoless docker usage
   user: name={{ galaxy_user_name }} groups=docker append=yes
 
 - name: Stop Docker service
   service: name=docker state=stopped
-  
+
 - name: Set DOCKER_OPTS
   lineinfile: dest=/etc/default/docker line='DOCKER_OPTS="--storage-driver=devicemapper -g {{ docker_storage_location }}"'
 
 - name: Remove old Docker folder
   file: path=/var/lib/docker state=absent
-  
+
 - name: Restart the Docker service
   service: name=docker state=started
+  when: ansible_virtualization_type != 'docker'
