@@ -10,7 +10,6 @@
 
 # We add the repository keys manually so that we can specify a keyserver
 # that operates on port 80. This is important for proxied environments.
-
 - name: Add Docker repository key
   apt_key: keyserver=hkp://p80.pool.sks-keyservers.net:80 id=58118E89F3A912897C070ADBF76221572C52609D
   when: configure_docker
@@ -18,6 +17,7 @@
 - name: Add nginx ppa key
   apt_key: keyserver=hkp://p80.pool.sks-keyservers.net:80 id=E9708E5E0DEE60262A3FE2089EB12D87B9BDC5ED
 
+# For problems with nginx or the nginx PPA see the Troubleshooting section in README.md
 - name: Add custom Galaxy PPA (used for nginx package)
   apt_repository: repo="ppa:m-vandenbeek/nginx-upload-store" update_cache=no
   when: ansible_distribution_version > "15.04"
