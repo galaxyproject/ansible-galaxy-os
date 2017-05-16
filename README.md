@@ -55,3 +55,21 @@ Next, create a `playbook.yml` file, setting any variables as desired:
 Run the playbook with:
 
     $ ansible-playbook playbook.yml -i hosts -e "@defaults/main.yml"
+
+
+Troubleshooting
+---------------
+This role provides a variant of the official nginx package that contains the
+`upload_module`.
+
+Note that ff the `upload_module` is configured in the nginx.conf file, but the
+official ubuntu nginx package is installed (which does not include the
+`upload_module`), nginx will not start.
+
+If the ubuntu nginx maintainers release a new nginx package, this package will
+take precedence over the variant provided by the PPA setup in this role.  The
+[PPA](https://launchpad.net/~m-vandenbeek/+archive/ubuntu/nginx-upload-store)
+from which this nginx variant is fetched is being built every day on
+[travis-ci](https://travis-ci.org/mvdbeek/starforge/builds), so in rare
+circumstances a new build may need to be triggered manually.
+If you think this is the case please open an issue and ping @mvdbeek or @afgane.
