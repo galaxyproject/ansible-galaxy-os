@@ -50,9 +50,6 @@
     - openssh-server
     - patch
     - pkg-config
-    - postgresql
-    - postgresql
-    - postgresql-client
     - python-boto
     - python-dev
     - python-prettytable
@@ -86,6 +83,8 @@
 - name: Install required system packages - release_specific
   apt: pkg={{ item }} state={{ apt_package_state }}
   with_items:
+    - postgresql-9.3
+    - postgresql-client-9.3
     - postgresql-plpython-9.3
     - postgresql-server-dev-9.3
   when: ansible_distribution_version <= "15.04"
@@ -93,6 +92,8 @@
 - name: Install required system packages - 15.10
   apt: pkg={{ item }} state={{ apt_package_state }}
   with_items:
+    - postgresql-9.4
+    - postgresql-client-9.4
     - postgresql-plpython-9.4
     - postgresql-server-dev-9.4
     - virtualenv
@@ -101,6 +102,8 @@
 - name: Install required system packages - 16.04
   apt: pkg={{ item }} state={{ apt_package_state }}
   with_items:
+    - postgresql-9.5
+    - postgresql-client-9.5
     - postgresql-plpython-9.5
     - postgresql-server-dev-9.5
     - virtualenv
