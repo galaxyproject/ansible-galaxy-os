@@ -21,8 +21,8 @@ galaxy_user_gid: 1001
 
 postgres_user_name: postgres
 postgres_user_home: /var/lib/postgresql
-postgres_user_uid: 111
-postgres_user_gid: 121
+postgres_user_uid: 211
+postgres_user_gid: 221
 
 configure_docker: yes
 install_apparmor: yes
