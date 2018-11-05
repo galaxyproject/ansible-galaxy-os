@@ -28,7 +28,7 @@
   apt: update_cache=yes
 
 - name: Install required system packages
-  apt: pkg={{ item }} state={{ apt_package_state }} install_recommends=no
+  apt: pkg={{ item }} state={{ package_state }} install_recommends=no
   with_items:
     - ant
     - cmake
@@ -67,7 +67,7 @@
     - zlib1g-dev
 
 - name: Install packages for system maintenance
-  apt: pkg={{ item }} state={{ apt_package_state }}
+  apt: pkg={{ item }} state={{ package_state }}
   with_items:
     - atop
     - bioperl
@@ -81,7 +81,7 @@
   when: install_maintainance_packages
 
 - name: Install required system packages - release_specific
-  apt: pkg={{ item }} state={{ apt_package_state }}
+  apt: pkg={{ item }} state={{ package_state }}
   with_items:
     - postgresql-9.3
     - postgresql-client-9.3
@@ -90,7 +90,7 @@
   when: ansible_distribution_version <= "15.04"
 
 - name: Install required system packages - 15.10
-  apt: pkg={{ item }} state={{ apt_package_state }}
+  apt: pkg={{ item }} state={{ package_state }}
   with_items:
     - postgresql-9.4
     - postgresql-client-9.4
@@ -100,7 +100,7 @@
   when: ansible_distribution_version == "15.10"
 
 - name: Install required system packages - 16.04
-  apt: pkg={{ item }} state={{ apt_package_state }}
+  apt: pkg={{ item }} state={{ package_state }}
   with_items:
     - postgresql-9.5
     - postgresql-client-9.5

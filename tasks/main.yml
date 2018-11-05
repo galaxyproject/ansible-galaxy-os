@@ -1,20 +1,24 @@
 ---
 # Install the base operating system requirements for running Galaxy
 
-- include: system_users.yml
+- include_tasks: system_users.yml
   when: add_system_users
 
-- include: ubuntu/packages.yml
+- include_tasks: ubuntu/packages.yml
   when: install_packages and ansible_distribution == 'Ubuntu'
 
-- include: ubuntu/rabbitmq.yml
-  when: install_rabbitmq  # Works on Ubunta and Debian
+- include_tasks: ubuntu/rabbitmq.yml
+  when: install_rabbitmq and ansible_os_familty == 'Debian'
 
-- include: ubuntu/docker.yml
+- include_tasks: ubuntu/docker.yml
   when: configure_docker and ansible_distribution == 'Ubuntu'
 
-- include: debian/packages.yml
+- include_tasks: debian/packages.yml
   when: install_packages and ansible_distribution == 'Debian'
 
-- include: debian/docker.yml
+- include_tasks: debian/docker.yml
   when: configure_docker and ansible_distribution == 'Debian'
+
+- include_tasks: redhat/packages.yml
+  when: install_packages and ansible_os_family == 'RedHat'
+

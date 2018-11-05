@@ -5,7 +5,7 @@
   apt_repository: repo='deb http://www.rabbitmq.com/debian/ testing main' state=present
 
 - name: Install rabbitmq-server
-  apt: pkg=rabbitmq-server state={{ apt_package_state }} install_recommends=yes
+  apt: pkg=rabbitmq-server state={{ package_state }} install_recommends=yes
 
 - name: Stop rabbitmq server
   service: name=rabbitmq-server state=stopped enabled=no

@@ -1,0 +1,76 @@
+---
+- name: Prerequisites
+  yum:
+    name: "{{ packages }}"
+    state: "{{ package_state }}"
+  vars:
+    packages:
+      - epel-release
+      - ca-certificates
+
+- name: Update yum cache
+  yum:
+    name: '*'
+    update_cache: yes
+
+- name: Install required system packages
+  yum:
+    name: "{{ packages }}"
+    state: "{{ package_state }}"
+  vars:
+    packages:
+      - ant
+      - cmake
+      - curl
+      - gcc-c++
+      - gcc
+      - gcc-gfortran
+      - git
+      - libffi-devel
+      - lapack-devel
+      - ncurses-devel
+      - openblas-devel
+      - pam-devel
+      - postgresql-plpython
+      - postgresql-devel
+      - postgresql-devel
+      - make
+      - mercurial
+      - git
+      - nginx
+      - openssh-server
+      - patch
+      - pkgconfig
+      - postgresql-server
+      - postgresql
+      - python-devel
+      - python-boto
+      - python-prettytable
+      - python-psycopg2
+      - python-virtualenv
+      - python-pip
+      - rsync
+      - samtools
+      - sudo
+      - supervisor
+      - swig
+      - sysstat
+      - unzip
+      - wget
+      - zlib-devel
+
+- name: Install packages for system maintenance
+  yum:
+    name: "{{ packages }}"
+    state: "{{ package_state }}"
+  vars:
+    packages:
+      - atop
+      - ipython
+      - iotop
+      - htop
+      - iftop
+      - nmon
+      - axel
+      - vim
+  when: install_maintainance_packages
