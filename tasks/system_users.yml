@@ -7,17 +7,18 @@
     - { name: "{{ galaxy_user_name }}", gid: "{{ galaxy_user_gid }}" }
     - { name: "{{ postgres_user_name}}", gid: "{{ postgres_user_gid }}" }
 
-- name: Add shadow groups
-  group: name=shadow system=yes
-
 - name: Add postgres user
-  user: name={{ postgres_user_name }} uid={{ postgres_user_uid }} system=yes home={{ postgres_user_home }}
+  user:
+    name: "{{ postgres_user_name }}"
+    uid: "{{ postgres_user_uid }}"
+    group: "{{ postgres_user_gid }}"
+    home: "{{ postgres_user_home }}"
+    system: yes
 
-- name: Adjust postgresql permissions
-  file: path={{ postgres_user_home }} group={{ postgres_user_name }} owner={{ postgres_user_name }} recurse=yes
- 
 - name: Add galaxy user
-  user: name={{ galaxy_user_name }} uid={{ galaxy_user_uid }} shell=/bin/bash groups={{ galaxy_user_name }},shadow
-
-- name: Add nobody user to shadow group
-  user: name=nobody groups=shadow
+  user:
+    name: "{{ galaxy_user_name }}"
+    uid: "{{ galaxy_user_uid }}"
+    group: "{{ galaxy_user_gid }}"
+    home: "{{ galaxy_user_home }}"
+    shell: "{{ galaxy_user_shell }}"
