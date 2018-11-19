@@ -11,18 +11,20 @@ install_packages: yes
 # If install_packages is 'yes', following determines if they are updated
 # ('latest') or left alone ('present') if they are already installed but
 # not updated.
-apt_package_state: latest
+package_state: latest
 install_maintainance_packages: yes
 add_system_users: yes
 
 galaxy_user_name: galaxy
 galaxy_user_uid: 1001
 galaxy_user_gid: 1001
+galaxy_user_home: /home/{{ galaxy_user_name }}
+galaxy_user_shell: /bin/bash
 
 postgres_user_name: postgres
-postgres_user_home: /var/lib/postgresql
 postgres_user_uid: 211
 postgres_user_gid: 221
+postgres_user_home: /var/lib/postgresql
 
 configure_docker: yes
 install_apparmor: yes

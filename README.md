@@ -32,7 +32,7 @@ given part of the role should be executed:
  - `install_maintainance_packages`: (default: `yes`) install convenience system
     packages used for server maintenance and administration
  - `configure_docker`: (default: `yes`) configure Docker as part of `install_packages`
- - `apt_package_state`: (default: `latest`) set to `present` to not force update
+ - `package_state`: (default: `latest`) set to `present` to not force update
     of existing installed packages.
  - `add_system_users`: (default: `yes`) configure system level users
 

@@ -1,0 +1,12 @@
+FROM centos:7
+
+RUN yum -y -q -e 0 update
+RUN yum -y -q -e 0 install ansible
+
+RUN mkdir /tmp/ansible
+WORKDIR /tmp/ansible
+ADD local.yml /tmp/ansible/local.yml
+ADD defaults /tmp/ansible/defaults
+ADD tasks /tmp/ansible/tasks
+
+RUN ansible-playbook -i localhost, local.yml -e "@defaults/main.yml"

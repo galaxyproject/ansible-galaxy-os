@@ -1,11 +1,11 @@
 - name: Install Docker package
-  apt: pkg={{ item }} state={{ apt_package_state }} install_recommends=no
+  apt: pkg={{ item }} state={{ package_state }} install_recommends=no
   with_items:
     - "{{ docker_package }}"
   when: install_packages
 
 - name: Install apparmor
-  apt: pkg={{ item }} state={{ apt_package_state }}
+  apt: pkg={{ item }} state={{ package_state }}
   with_items:
    - apparmor
    - cgroup-lite
