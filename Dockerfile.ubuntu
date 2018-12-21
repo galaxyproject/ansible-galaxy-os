@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 
 RUN apt-get -qq update && apt-get install --no-install-recommends -y apt-transport-https  software-properties-common && \
     apt-add-repository -y ppa:ansible/ansible && \
