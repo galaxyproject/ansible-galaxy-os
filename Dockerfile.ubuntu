@@ -6,7 +6,7 @@ RUN apt-get -qq update && apt-get install --no-install-recommends -y apt-transpo
     apt-get -qq install ansible && \
     apt-get purge -y software-properties-common
 
-RUN mkdir /tmp/ansible && sudo touch /etc/sudoers
+RUN mkdir /tmp/ansible && touch /etc/sudoers
 WORKDIR /tmp/ansible
 ADD local.yml /tmp/ansible/local.yml
 ADD defaults /tmp/ansible/defaults
