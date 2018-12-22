@@ -9,11 +9,11 @@
   when: ansible_distribution_version <= "15.04"
 
 - name: Add custom Galaxy PPA (used for nginx package)
-  apt_repository: repo="ppa:m-vandenbeek/nginx-upload-store" update_cache=no
+  apt_repository: repo="ppa:galaxyproject/nginx" update_cache=no
   when: ansible_distribution_version > "15.04"
 
 - name: Pin Galaxy's versions of the PPAs so they take priority over the defaults
-  copy: src=m-vandenbeek-nginx-upload-store-pin-600 dest=/etc/apt/preferences.d/m-vandenbeek-nginx-upload-store-pin-600
+  copy: src=galaxyproject-nginx-pin-600 dest=/etc/apt/preferences.d/galaxyproject-nginx-pin-600
   when: ansible_distribution_version > "15.04"
 
 - name: Add Docker repository key
