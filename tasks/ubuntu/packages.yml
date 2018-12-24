@@ -46,7 +46,7 @@
     state: "{{ package_state }}"
   when: install_maintainance_packages
 
-- name: Install required system packages - release_specific
+- name: Install required system packages - <= 15.04
   apt:
     pkg: ['postgresql-9.3', 'postgresql-client-9.3',
           'postgresql-plpython-9.3', 'postgresql-server-dev-9.3']
