@@ -40,44 +40,29 @@
     install_recommends: no
 
 - name: Install packages for system maintenance
-  apt: pkg={{ item }} state={{ package_state }}
-  with_items:
-    - atop
-    - bioperl
-    - ipython
-    - iotop
-    - htop
-    - iftop
-    - nmon
-    - axel
-    - vim
+  apt:
+    pkg: ['atop', 'bioperl', 'ipython', 'iotop',
+          'htop', 'iftop', 'nmon', 'axel', 'vim']
+    state: "{{ package_state }}"
   when: install_maintainance_packages
 
 - name: Install required system packages - release_specific
-  apt: pkg={{ item }} state={{ package_state }}
-  with_items:
-    - postgresql-9.3
-    - postgresql-client-9.3
-    - postgresql-plpython-9.3
-    - postgresql-server-dev-9.3
+  apt:
+    pkg: ['postgresql-9.3', 'postgresql-client-9.3',
+          'postgresql-plpython-9.3', 'postgresql-server-dev-9.3']
+    state: "{{ package_state }}"
   when: ansible_distribution_version <= "15.04"
 
 - name: Install required system packages - 15.10
-  apt: pkg={{ item }} state={{ package_state }}
-  with_items:
-    - postgresql-9.4
-    - postgresql-client-9.4
-    - postgresql-plpython-9.4
-    - postgresql-server-dev-9.4
-    - virtualenv
+  apt:
+    pkg:  ['postgresql-9.4', 'postgresql-client-9.4', 'postgresql-plpython-9.4',
+           'postgresql-server-dev-9.4', 'virtualenv']
+    state: "{{ package_state }}"
   when: ansible_distribution_version == "15.10"
 
 - name: Install required system packages - 16.04
-  apt: pkg={{ item }} state={{ package_state }}
-  with_items:
-    - postgresql-9.5
-    - postgresql-client-9.5
-    - postgresql-plpython-9.5
-    - postgresql-server-dev-9.5
-    - virtualenv
+  apt:
+    pkg:  ['postgresql-9.5', 'postgresql-client-9.5', 'postgresql-plpython-9.5',
+           'postgresql-server-dev-9.5', 'virtualenv']
+    state: "{{ package_state }}"
   when: ansible_distribution_version == "16.04"
