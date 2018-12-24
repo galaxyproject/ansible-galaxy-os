@@ -28,43 +28,16 @@
   apt: update_cache=yes
 
 - name: Install required system packages
-  apt: pkg={{ item }} state={{ package_state }} install_recommends=no
-  with_items:
-    - ant
-    - cmake
-    - curl
-    - g++
-    - gcc
-    - gfortran
-    - git-core
-    - libffi-dev
-    - liblapack-dev
-    - libncurses5-dev
-    - libopenblas-dev
-    - libpam0g-dev
-    - libpq-dev
-    - libsparsehash-dev
-    - make
-    - mercurial
-    - nginx-extras
-    - openssh-server
-    - patch
-    - pkg-config
-    - python-boto
-    - python-dev
-    - python-prettytable
-    - python-psycopg2
-    - python-virtualenv
-    - python-pip
-    - rsync
-    - samtools
-    - slurm-drmaa-dev
-    - supervisor
-    - swig
-    - sysstat
-    - unzip
-    - wget
-    - zlib1g-dev
+  apt:
+    pkg: ['ant', 'cmake', 'curl', 'g++', 'gcc', 'gfortran', 'git-core',
+          'libffi-dev', 'liblapack-dev', 'libncurses5-dev', 'libopenblas-dev',
+          'libpam0g-dev', 'libpq-dev', 'libsparsehash-dev', 'make', 'mercurial',
+          'nginx-extras', 'openssh-server', 'patch', 'pkg-config', 'python-boto',
+          'python-dev', 'python-prettytable', 'python-psycopg2', 'python-virtualenv',
+          'python-pip', 'rsync', 'samtools', 'slurm-drmaa-dev', 'supervisor', 'swig',
+          'sysstat', 'unzip', 'wget', 'zlib1g-dev'] 
+    state: "{{ package_state }}"
+    install_recommends: no
 
 - name: Install packages for system maintenance
   apt: pkg={{ item }} state={{ package_state }}
