@@ -29,40 +29,88 @@
 
 - name: Install required system packages
   apt:
-    pkg: ['ant', 'cmake', 'curl', 'g++', 'gcc', 'gfortran', 'git-core',
-          'libffi-dev', 'liblapack-dev', 'libncurses5-dev', 'libopenblas-dev',
-          'libpam0g-dev', 'libpq-dev', 'libsparsehash-dev', 'make', 'mercurial',
-          'nginx-extras', 'openssh-server', 'patch', 'pkg-config', 'python-boto',
-          'python-dev', 'python-prettytable', 'python-psycopg2', 'python-virtualenv',
-          'python-pip', 'rsync', 'samtools', 'slurm-drmaa-dev', 'supervisor', 'swig',
-          'sysstat', 'unzip', 'wget', 'zlib1g-dev'] 
+    pkg:
+      - ant
+      - cmake
+      - curl
+      - g++      
+      - gcc      
+      - gfortran      
+      - git-core
+      - libffi-dev      
+      - liblapack-dev      
+      - libncurses5-dev      
+      - libopenblas-dev
+      - libpam0g-dev      
+      - libpq-dev      
+      - libsparsehash-dev      
+      - make      
+      - mercurial
+      - nginx-extras      
+      - openssh-server      
+      - patch      
+      - pkg-config      
+      - python-boto
+      - python-dev      
+      - python-prettytable      
+      - python-psycopg2      
+      - python-virtualenv
+      - python-pip      
+      - rsync      
+      - samtools      
+      - slurm-drmaa-dev      
+      - supervisor      
+      - swig
+      - sysstat      
+      - unzip      
+      - wget      
+      - zlib1g-dev
     state: "{{ package_state }}"
     install_recommends: no
 
 - name: Install packages for system maintenance
   apt:
-    pkg: ['atop', 'bioperl', 'ipython', 'iotop',
-          'htop', 'iftop', 'nmon', 'axel', 'vim']
+    pkg:
+      - atop      
+      - bioperl      
+      - ipython      
+      - iotop
+      - htop      
+      - iftop      
+      - nmon      
+      - axel      
+      - vim
     state: "{{ package_state }}"
   when: install_maintainance_packages
 
 - name: Install required system packages - <= 15.04
   apt:
-    pkg: ['postgresql-9.3', 'postgresql-client-9.3',
-          'postgresql-plpython-9.3', 'postgresql-server-dev-9.3']
+    pkg:
+      - postgresql-9.3      
+      - postgresql-client-9.3
+      - postgresql-plpython-9.3      
+      - postgresql-server-dev-9.3
     state: "{{ package_state }}"
   when: ansible_distribution_version <= "15.04"
 
 - name: Install required system packages - 15.10
   apt:
-    pkg:  ['postgresql-9.4', 'postgresql-client-9.4', 'postgresql-plpython-9.4',
-           'postgresql-server-dev-9.4', 'virtualenv']
+    pkg:
+      - postgresql-9.4      
+      - postgresql-client-9.4      
+      - postgresql-plpython-9.4
+      - postgresql-server-dev-9.4      
+      - virtualenv
     state: "{{ package_state }}"
   when: ansible_distribution_version == "15.10"
 
 - name: Install required system packages - 16.04
   apt:
-    pkg:  ['postgresql-9.5', 'postgresql-client-9.5', 'postgresql-plpython-9.5',
-           'postgresql-server-dev-9.5', 'virtualenv']
+    pkg:
+      - postgresql-9.5      
+      - postgresql-client-9.5      
+      - postgresql-plpython-9.5
+      - postgresql-server-dev-9.5      
+- virtualenv']
     state: "{{ package_state }}"
   when: ansible_distribution_version == "16.04"

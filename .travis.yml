@@ -1,7 +1,5 @@
 language: python
 python: 2.7
-dist: trusty
-sudo: required
 
 services:
  - docker

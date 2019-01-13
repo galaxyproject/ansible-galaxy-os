@@ -1,13 +1,16 @@
 - name: Install Docker package
   apt:
-    pkg: ['{{ docker_package }}']
+    pkg:
+      - '{{ docker_package }}'
     state: "{{ package_state }}"
     install_recommends: no
   when: install_packages
 
 - name: Install apparmor
   apt:
-    pkg: ['apparmor', 'cgroup-lite']
+    pkg:
+      - apparmor
+      - cgroup-lite'
     state: "{{ package_state }}"
   when: install_apparmor
 
