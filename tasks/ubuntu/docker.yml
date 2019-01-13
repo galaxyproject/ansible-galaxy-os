@@ -10,7 +10,7 @@
   apt:
     pkg:
       - apparmor
-      - cgroup-lite'
+      - cgroup-lite
     state: "{{ package_state }}"
   when: install_apparmor
 
