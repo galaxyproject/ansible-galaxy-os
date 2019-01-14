@@ -7,7 +7,8 @@ services:
 env:
   - FILENAME=Dockerfile.centos
   - FILENAME=Dockerfile.debian
-  - FILENAME=Dockerfile.ubuntu
+  - FILENAME=Dockerfile.ubuntu.trusty
+  - FILENAME=Dockerfile.ubuntu.xenial
 
 script:
   - docker build -t ansible-galaxy-os -f $FILENAME .

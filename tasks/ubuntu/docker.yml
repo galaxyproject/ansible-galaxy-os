@@ -1,14 +1,17 @@
 - name: Install Docker package
-  apt: pkg={{ item }} state={{ package_state }} install_recommends=no
-  with_items:
-    - "{{ docker_package }}"
+  apt:
+    pkg:
+      - '{{ docker_package }}'
+    state: "{{ package_state }}"
+    install_recommends: no
   when: install_packages
 
 - name: Install apparmor
-  apt: pkg={{ item }} state={{ package_state }}
-  with_items:
-   - apparmor
-   - cgroup-lite
+  apt:
+    pkg:
+      - apparmor
+      - cgroup-lite
+    state: "{{ package_state }}"
   when: install_apparmor
 
 - name: Allow galaxy user to run docker with sudo
