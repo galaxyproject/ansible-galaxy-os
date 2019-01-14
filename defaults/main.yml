@@ -13,6 +13,7 @@ install_packages: yes
 # not updated.
 package_state: latest
 install_maintainance_packages: yes
+install_slurm_drmaa_lib: yes
 add_system_users: yes
 
 galaxy_user_name: galaxy

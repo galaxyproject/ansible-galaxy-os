@@ -50,7 +50,6 @@
     - python-pip
     - rsync
     - samtools
-    - slurm-drmaa-dev
     - sudo
     - supervisor
     - swig
@@ -58,6 +57,12 @@
     - unzip
     - wget
     - zlib1g-dev
+
+- name: Add Slurm DRMAA package
+  apt:
+    pkg: slurm-drmaa-dev
+    state: "{{ package_state }}"
+  when: install_slurm_drmaa_lib
 
 - name: Install packages for system maintenance
   apt: pkg={{ item }} state={{ package_state }}
