@@ -22,3 +22,7 @@
 - include_tasks: redhat/packages.yml
   when: install_packages and ansible_os_family == 'RedHat'
 
+- name: Clean up
+  apt:
+    autoclean: yes
+    autoremove: yes
