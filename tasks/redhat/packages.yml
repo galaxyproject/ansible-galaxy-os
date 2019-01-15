@@ -74,7 +74,3 @@
       - axel
       - vim
   when: install_maintainance_packages
-
-- name: Clean up
-  yum:
-    autoremove: yes
