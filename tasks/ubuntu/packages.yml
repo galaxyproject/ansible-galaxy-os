@@ -124,3 +124,8 @@
       - postgresql-server-dev-10
     state: "{{ package_state }}"
   when: ansible_distribution_version == "18.04"
+
+- name: Clean up
+  apt:
+    autoclean: yes
+    autoremove: yes

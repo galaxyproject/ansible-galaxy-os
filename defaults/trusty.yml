@@ -1,3 +1,0 @@
-# Default variables for Ubuntu 14.04 (Trusty)
-
-docker_package: docker-engine

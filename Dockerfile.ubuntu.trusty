@@ -12,4 +12,4 @@ ADD local.yml /tmp/ansible/local.yml
 ADD defaults /tmp/ansible/defaults
 ADD tasks /tmp/ansible/tasks
 ADD files/galaxyproject-nginx-pin-600 /tmp/ansible/galaxyproject-nginx-pin-600
-RUN ansible-playbook -i localhost, local.yml -e "@defaults/main.yml" -e"@defaults/trusty.yml"
+RUN ansible-playbook -i localhost, local.yml -e "@defaults/main.yml" -e"@defaults/trusty_debian.yml"
