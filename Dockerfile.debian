@@ -16,4 +16,4 @@ WORKDIR /tmp/ansible
 ADD local.yml /tmp/ansible/local.yml
 ADD defaults /tmp/ansible/defaults
 ADD tasks /tmp/ansible/tasks
-RUN ansible-playbook -i localhost, local.yml -e "@defaults/main.yml"
+RUN ansible-playbook -i localhost, local.yml -e "@defaults/main.yml" -e"@defaults/trusty_debian.yml"

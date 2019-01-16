@@ -9,6 +9,7 @@ env:
   - FILENAME=Dockerfile.debian
   - FILENAME=Dockerfile.ubuntu.trusty
   - FILENAME=Dockerfile.ubuntu.xenial
+  - FILENAME=Dockerfile.ubuntu.bionic
 
 script:
   - docker build -t ansible-galaxy-os -f $FILENAME .

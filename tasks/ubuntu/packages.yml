@@ -2,27 +2,34 @@
 # Install system packages
 - name: Add custom Galaxy PPA (used for nginx package)
   apt_repository: repo="ppa:galaxyproject/nginx" update_cache=no
-  when: ansible_distribution_version <= "15.04"
+  when: ansible_distribution_version <= "16.04"
 
 - name: Pin Galaxy's versions of the PPAs so they take priority over the defaults
   copy: src=galaxyproject-nginx-pin-600 dest=/etc/apt/preferences.d/galaxyproject-nginx-pin-600
-  when: ansible_distribution_version <= "15.04"
+  when: ansible_distribution_version <= "16.04"
 
-- name: Add custom Galaxy PPA (used for nginx package)
-  apt_repository: repo="ppa:galaxyproject/nginx" update_cache=no
-  when: ansible_distribution_version > "15.04"
-
-- name: Pin Galaxy's versions of the PPAs so they take priority over the defaults
-  copy: src=galaxyproject-nginx-pin-600 dest=/etc/apt/preferences.d/galaxyproject-nginx-pin-600
-  when: ansible_distribution_version > "15.04"
-
-- name: Add Docker repository key
+- name: Add Docker repository key (Ubuntu 14.04)
   apt_key: keyserver=hkp://p80.pool.sks-keyservers.net:80 id=58118E89F3A912897C070ADBF76221572C52609D
-  when: configure_docker
+  when: configure_docker and ansible_distribution_version == "14.04"
 
 - name: Add Docker repository
   apt_repository: repo='deb https://apt.dockerproject.org/repo ubuntu-{{ ansible_distribution_release }} main' update_cache=no #'
-  when: configure_docker
+  when: configure_docker and ansible_distribution_version == "14.04"
+
+- name: Add gpg-agent package
+  apt:
+    pkg: gpg-agent
+  when: ansible_distribution_version >= "18.04"
+
+- name: Add Docker GPG key (Ubuntu >14.04)
+  apt_key: url=https://download.docker.com/linux/ubuntu/gpg
+  when: configure_docker and ansible_distribution_version > "14.04"
+
+- name: Add Docker repository (Ubuntu >14.04)
+  apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
+    update_cache: no
+  when: configure_docker and ansible_distribution_version > "14.04"
 
 - name: Update APT cache
   apt: update_cache=yes
@@ -87,7 +94,7 @@
     state: "{{ package_state }}"
   when: install_maintainance_packages
 
-- name: Install required system packages - <= 15.04
+- name: Install required system packages - 14.04
   apt:
     pkg:
       - postgresql-9.3
@@ -95,18 +102,7 @@
       - postgresql-plpython-9.3
       - postgresql-server-dev-9.3
     state: "{{ package_state }}"
-  when: ansible_distribution_version <= "15.04"
-
-- name: Install required system packages - 15.10
-  apt:
-    pkg:
-      - postgresql-9.4
-      - postgresql-client-9.4
-      - postgresql-plpython-9.4
-      - postgresql-server-dev-9.4
-      - virtualenv
-    state: "{{ package_state }}"
-  when: ansible_distribution_version == "15.10"
+  when: ansible_distribution_version == "14.04"
 
 - name: Install required system packages - 16.04
   apt:
@@ -118,3 +114,18 @@
       - virtualenv
     state: "{{ package_state }}"
   when: ansible_distribution_version == "16.04"
+
+- name: Install required system packages - 18.04
+  apt:
+    pkg:
+      - postgresql-10
+      - postgresql-client-10
+      - postgresql-plpython-10
+      - postgresql-server-dev-10
+    state: "{{ package_state }}"
+  when: ansible_distribution_version == "18.04"
+
+- name: Clean up
+  apt:
+    autoclean: yes
+    autoremove: yes

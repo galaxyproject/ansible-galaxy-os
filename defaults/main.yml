@@ -30,5 +30,5 @@ postgres_user_home: /var/lib/postgresql
 configure_docker: yes
 install_apparmor: yes
 install_rabbitmq: no
-docker_package: docker-engine
+docker_package: docker-ce
 docker_storage_location: /var/lib/docker

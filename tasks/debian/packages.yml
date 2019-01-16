@@ -85,3 +85,8 @@
     - postgresql-server-dev-9.4
     - virtualenv
   when: ansible_distribution_version >= 8
+
+- name: Clean up
+  apt:
+    autoclean: yes
+    autoremove: yes
