@@ -122,6 +122,7 @@
       - postgresql-client-10
       - postgresql-plpython-10
       - postgresql-server-dev-10
+      - virtualenv
     state: "{{ package_state }}"
   when: ansible_distribution_version == "18.04"
 
