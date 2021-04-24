@@ -13,7 +13,7 @@
     repo: ppa:natefoo/slurm-drmaa
     state: present
     update_cache: yes
-  when: ansible_distribution_version == "18.04"
+  when: ansible_distribution_version == "18.04" or ansible_distribution_version == "20.04"
 
 - name: Add Docker repository key (Ubuntu 14.04)
   apt_key: keyserver=hkp://p80.pool.sks-keyservers.net:80 id=58118E89F3A912897C070ADBF76221572C52609D
@@ -41,7 +41,7 @@
 - name: Update APT cache
   apt: update_cache=yes
 
-- name: Install required system packages
+- name: Install required system packages for 14.04, 16.04 or 18.04
   apt:
     pkg:
       - ant
@@ -80,6 +80,51 @@
       - zlib1g-dev
     state: "{{ package_state }}"
     install_recommends: no
+    when: ansible_distribution_version == "14.04" or ansible_distribution_version == "16.04" or ansible_distribution_version == "18.04"
+
+
+- name: Install required system packages for Ubuntu 20.04
+  apt:
+    pkg:
+      - ant
+      - cmake
+      - curl
+      - g++
+      - gcc
+      - gfortran
+      - git-core
+      - libffi-dev
+      - liblapack-dev
+      - libncurses5-dev
+      - libopenblas-dev
+      - libpam0g-dev
+      - libpq-dev
+      - libsparsehash-dev
+      - make
+      - mercurial
+      - nginx-extras
+      - openssh-server
+      - patch
+      - pkg-config
+      - python3-boto
+      - python-dev
+      - python3-prettytable
+      - python3-psycopg2
+      - python3-virtualenv
+      - python-pip-whl
+      - rsync
+      - samtools
+      - supervisor
+      - swig
+      - sysstat
+      - unzip
+      - wget
+      - zlib1g-dev
+    state: "{{ package_state }}"
+    install_recommends: no
+    when: ansible_distribution_version == "20.04"
+
+
 
 - name: Add Slurm DRMAA package
   apt:
@@ -132,6 +177,18 @@
       - virtualenv
     state: "{{ package_state }}"
   when: ansible_distribution_version == "18.04"
+
+- name: Install required system packages - 20.04
+  apt:
+    pkg:
+      - postgresql-12
+      - postgresql-client-12
+      - postgresql-plpython3-12
+      - postgresql-server-dev-12
+      - virtualenv
+    state: "{{ package_state }}"
+  when: ansible_distribution_version == "20.04"
+
 
 - name: Clean up
   apt:
