@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        image: [xenial, bionic]
+        image: [xenial, bionic, focal]
     env:
       IMG: ${{ matrix.image }}
     steps:
@@ -22,4 +22,4 @@ jobs:
       - name: Build
         run: |
           docker build -f Dockerfile.ubuntu.${IMG} .
-        # continue-on-error: true
+        continue-on-error: false
