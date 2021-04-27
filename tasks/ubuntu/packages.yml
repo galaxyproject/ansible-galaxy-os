@@ -99,7 +99,6 @@
       - iftop
       - nmon
       - vim
-      - python3-ipython
     state: "{{ package_state }}"
   when: install_maintainance_packages
 
