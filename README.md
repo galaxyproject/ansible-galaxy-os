@@ -5,11 +5,11 @@ running Galaxy.
 
 Requirements
 ------------
-The role has been developed and tested on Ubuntu 14.04 and Debian 8. It requires `sudo` access.
+The role has been developed and tested on Ubuntu 16.04, 18.04 and 20.04 and Debian 8. It requires `sudo` access.
 
 Dependencies
 ------------
-None
+Python3
 
 Role variables
 --------------
