@@ -103,6 +103,18 @@
     state: "{{ package_state }}"
   when: install_maintainance_packages
 
+- name: install ipython package for system maintenance in Ubuntu < 20.04
+  apt:
+    pkg:
+      - ipython
+  when: "ansible_distribution_version is version( '20.04', '<')"
+
+- name: install ipython package for system maintenance in Ubuntu >= 20.04
+  apt:
+    pkg:
+      - python3-ipython
+  when: "ansible_distribution_version is version( '20.04', '>=')"
+
 - name: Install required system packages - 16.04
   apt:
     pkg:
