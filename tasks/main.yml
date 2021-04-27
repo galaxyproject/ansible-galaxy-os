@@ -7,9 +7,6 @@
 - include_tasks: ubuntu/packages.yml
   when: install_packages and ansible_distribution == 'Ubuntu'
 
-- include_tasks: ubuntu/rabbitmq.yml
-  when: install_rabbitmq and ansible_os_familty == 'Debian'
-
 - include_tasks: ubuntu/docker.yml
   when: configure_docker and ansible_distribution == 'Ubuntu'
 
@@ -18,6 +15,9 @@
 
 - include_tasks: debian/docker.yml
   when: configure_docker and ansible_distribution == 'Debian'
+
+- include_tasks: debian/rabbitmq.yml
+  when: install_rabbitmq and ansible_os_familty == 'Debian'
 
 - include_tasks: redhat/packages.yml
   when: install_packages and ansible_os_family == 'RedHat'

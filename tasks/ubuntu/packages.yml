@@ -41,49 +41,7 @@
 - name: Update APT cache
   apt: update_cache=yes
 
-- name: Install required system packages for 14.04, 16.04 or 18.04
-  apt:
-    pkg:
-      - ant
-      - cmake
-      - curl
-      - g++
-      - gcc
-      - gfortran
-      - git-core
-      - libffi-dev
-      - liblapack-dev
-      - libncurses5-dev
-      - libopenblas-dev
-      - libpam0g-dev
-      - libpq-dev
-      - libsparsehash-dev
-      - make
-      - mercurial
-      - nginx-extras
-      - openssh-server
-      - patch
-      - pkg-config
-      - python-boto
-      - python-dev
-      - python-prettytable
-      - python-psycopg2
-      - python-virtualenv
-      - python-pip
-      - rsync
-      - samtools
-      - supervisor
-      - swig
-      - sysstat
-      - unzip
-      - wget
-      - zlib1g-dev
-    state: "{{ package_state }}"
-    install_recommends: no
-  when: "ansible_distribution_version is version('18.04', '<=')"
-
-
-- name: Install required system packages for Ubuntu 20.04
+- name: Install required system packages for 16.04, 18.04, 20.04 (must have python3 installed)
   apt:
     pkg:
       - ant
@@ -112,6 +70,7 @@
       - python3-psycopg2
       - python3-virtualenv
       - python-pip-whl
+      - python3-pip
       - rsync
       - samtools
       - supervisor
@@ -122,9 +81,7 @@
       - zlib1g-dev
     state: "{{ package_state }}"
     install_recommends: no
-  when: "ansible_distribution_version is version( '20.04', '==')"
-
-
+  when: "ansible_distribution_version is version('14.04', '>')"
 
 - name: Add Slurm DRMAA package
   apt:
@@ -145,21 +102,17 @@
     state: "{{ package_state }}"
   when: install_maintainance_packages
 
-- name: install ipython package for Ubuntu < 20.04
+- name: install ipython package for system maintenance in Ubuntu < 20.04
   apt:
     pkg:
       - ipython
   when: "ansible_distribution_version is version( '20.04', '<')"
 
-- name: Install required system packages - 14.04
+- name: install ipython package for system maintenance in Ubuntu >= 20.04
   apt:
     pkg:
-      - postgresql-9.3
-      - postgresql-client-9.3
-      - postgresql-plpython-9.3
-      - postgresql-server-dev-9.3
-    state: "{{ package_state }}"
-  when: ansible_distribution_version == "14.04"
+      - python3-ipython
+  when: "ansible_distribution_version is version( '20.04', '>=')"
 
 - name: Install required system packages - 16.04
   apt:
@@ -193,7 +146,6 @@
       - virtualenv
     state: "{{ package_state }}"
   when: ansible_distribution_version == "20.04"
-
 
 - name: Clean up
   apt:
