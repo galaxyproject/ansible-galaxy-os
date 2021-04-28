@@ -8,12 +8,12 @@
   copy: src=galaxyproject-nginx-pin-600 dest=/etc/apt/preferences.d/galaxyproject-nginx-pin-600
   when: ansible_distribution_version <= "16.04"
 
-- name: Add custom Galaxy PPA (used for Slurm DRMAA package in Ubuntu 18.04)
+- name: Add custom Galaxy PPA (used for Slurm DRMAA package in Ubuntu 18.04 and 20.04)
   apt_repository: 
     repo: ppa:natefoo/slurm-drmaa
     state: present
     update_cache: yes
-  when: ansible_distribution_version == "18.04"
+  when: ansible_distribution_version == "18.04" or ansible_distribution_version == "20.04"
 
 - name: Add Docker repository key (Ubuntu 14.04)
   apt_key: keyserver=hkp://p80.pool.sks-keyservers.net:80 id=58118E89F3A912897C070ADBF76221572C52609D
@@ -41,7 +41,7 @@
 - name: Update APT cache
   apt: update_cache=yes
 
-- name: Install required system packages
+- name: Install required system packages for 16.04, 18.04, 20.04 (must have python3 installed)
   apt:
     pkg:
       - ant
@@ -64,12 +64,13 @@
       - openssh-server
       - patch
       - pkg-config
-      - python-boto
+      - python3-boto
       - python-dev
-      - python-prettytable
-      - python-psycopg2
-      - python-virtualenv
-      - python-pip
+      - python3-prettytable
+      - python3-psycopg2
+      - python3-virtualenv
+      - python-pip-whl
+      - python3-pip
       - rsync
       - samtools
       - supervisor
@@ -80,6 +81,7 @@
       - zlib1g-dev
     state: "{{ package_state }}"
     install_recommends: no
+  when: "ansible_distribution_version is version('14.04', '>')"
 
 - name: Add Slurm DRMAA package
   apt:
@@ -92,7 +94,6 @@
     pkg:
       - atop
       - bioperl
-      - ipython
       - iotop
       - htop
       - iftop
@@ -101,15 +102,17 @@
     state: "{{ package_state }}"
   when: install_maintainance_packages
 
-- name: Install required system packages - 14.04
+- name: install ipython package for system maintenance in Ubuntu < 20.04
   apt:
     pkg:
-      - postgresql-9.3
-      - postgresql-client-9.3
-      - postgresql-plpython-9.3
-      - postgresql-server-dev-9.3
-    state: "{{ package_state }}"
-  when: ansible_distribution_version == "14.04"
+      - ipython
+  when: "ansible_distribution_version is version( '20.04', '<')"
+
+- name: install ipython package for system maintenance in Ubuntu >= 20.04
+  apt:
+    pkg:
+      - python3-ipython
+  when: "ansible_distribution_version is version( '20.04', '>=')"
 
 - name: Install required system packages - 16.04
   apt:
@@ -132,6 +135,17 @@
       - virtualenv
     state: "{{ package_state }}"
   when: ansible_distribution_version == "18.04"
+
+- name: Install required system packages - 20.04
+  apt:
+    pkg:
+      - postgresql-12
+      - postgresql-client-12
+      - postgresql-plpython3-12
+      - postgresql-server-dev-12
+      - virtualenv
+    state: "{{ package_state }}"
+  when: ansible_distribution_version == "20.04"
 
 - name: Clean up
   apt:

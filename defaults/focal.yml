@@ -1,0 +1,5 @@
+# Default variables for Ubuntu 20.04 (Focal)
+
+install_slurm_drmaa_lib: no
+# install_maintainance_packages: no
+# configure_docker: no
